@@ -68,11 +68,11 @@ const svgContainer = d3
 
 //define tooltip
 
-const tooltip = svgContainer
+const tooltip = d3
+  .select(".visHolder")
   .append("div")
   .attr("class", "tooltip")
-  .attr("id", "tooltip")
-  .style("opacity", 0);
+  .attr("id", "tooltip");
 
 //import data including json to converst state abbreviation to name
 
@@ -142,11 +142,14 @@ d3.queue()
       }
     };
     const textContent = (d) => {
-      getCountyName(d) +
-        "<br>" +
+      return (
+        getCountyName(d) +
+        ", " +
         getStateName(d) +
         "<br>" +
-        getEducationData(d);
+        getEducationData(d) +
+        "%"
+      );
     };
     //visualize counties
 
@@ -166,11 +169,16 @@ d3.queue()
         return "#" + colorScale(getEducationData(d)) + "00000";
       })
       .attr("d", geoGenerator)
-      .on("mouseover", (d, i) => {
+      .on("mouseover", (d) => {
         tooltip
           .style("opacity", 0.8)
+          .style("top", d3.event.pageY - 150 + "px")
+          .style("left", d3.event.pageX - 50 + "px")
           .attr("data-education", getEducationData(d))
           .html(textContent(d));
+      })
+      .on("mouseout", () => {
+        tooltip.style("opacity", 0);
       });
 
     //visualize states

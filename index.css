@@ -14,7 +14,7 @@ svg {
 }
 
 .county:hover {
-  stroke: yellow;
+  opacity: 0.5;
 }
 
 .state {
@@ -25,7 +25,7 @@ svg {
 .tooltip {
   position: absolute;
   text-align: center;
-  padding: 5px;
-  background: white;
+  padding: 10px;
+  background: lightgrey;
   box-shadow: 0 0 5px;
 }
