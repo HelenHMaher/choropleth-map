@@ -5,9 +5,13 @@ html {
 }
 
 svg {
-  background: green;
+  background: white;
 }
 
 .container {
   background: lightgrey;
+}
+
+.county:hover {
+  stroke: yellow;
 }

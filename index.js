@@ -51,7 +51,7 @@ d3.queue()
 
     //visualize counties
 
-    path = d3.geoPath();
+    geoGenerator = d3.geoPath();
 
     svgContainer
       .append("g")
@@ -83,5 +83,5 @@ d3.queue()
           return "#" + colorScale(0) + "00000";
         }
       })
-      .attr("d", path);
+      .attr("d", geoGenerator);
   });
