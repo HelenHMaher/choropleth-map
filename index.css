@@ -10,8 +10,22 @@ svg {
 
 .container {
   background: lightgrey;
+  position: relative;
 }
 
 .county:hover {
   stroke: yellow;
+}
+
+.state {
+  stroke: white;
+  stroke-width: 0.3;
+}
+
+.tooltip {
+  position: absolute;
+  text-align: center;
+  padding: 5px;
+  background: white;
+  box-shadow: 0 0 5px;
 }
