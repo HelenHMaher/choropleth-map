@@ -103,7 +103,26 @@ d3.queue()
       .domain(thresholdArray)
       .range([1, 2, 3, 4, 5, 6, 7, 8]);
 
+    const legendXScale = d3
+      .scaleLinear()
+      .domain([d3.min(edArray), d3.max(edArray)])
+      .range([0, 300]);
+
     const legend = svgContainer.append("g").attr("id", "legend");
+
+    legend
+      .append("g")
+      .selectAll("rect")
+      .data(edArray)
+      .enter()
+      .append("rect")
+      .attr("x", (d) => legendXScale(d))
+      .attr("y", height - 50)
+      .attr("width", 5)
+      .attr("height", 20)
+      .attr("fill", (d) => {
+        return "#" + colorScale(d) + "00000";
+      });
 
     //constants used to visualize counties with colors and tooltip
 
