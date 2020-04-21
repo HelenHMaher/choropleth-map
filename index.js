@@ -18,10 +18,6 @@ const tooltip = svgContainer
   .attr("id", "tooltip")
   .style("opacity", 0);
 
-//define legend
-
-const legend = svgContainer.append("g").attr("id", "legend");
-
 //import data
 
 const COUNTIES_FILE =
@@ -34,6 +30,24 @@ d3.queue()
   .defer(d3.json, EDUCATION_FILE)
   .await((error, usFile, educationFile) => {
     if (error) throw error;
+
+    //define legend
+    const edArray = educationFile.map((d) => d.bachelorsOrHigher);
+    const step = (d3.max(edArray) - d3.min(edArray)) / 8;
+    const thresholdArray = [];
+    const stepThreshold = () => {
+      for (let i = 1; i < 8; i++) {
+        thresholdArray.push(d3.min(edArray) + i * step);
+      }
+    };
+    stepThreshold();
+
+    const colorScale = d3
+      .scaleThreshold()
+      .domain(thresholdArray)
+      .range([1, 2, 3, 4, 5, 6, 7, 8]);
+
+    const legend = svgContainer.append("g").attr("id", "legend");
 
     //visualize counties
 
@@ -59,6 +73,15 @@ d3.queue()
           return 0;
         }
       })
-      .attr("fill", "white")
+      .attr("fill", (d) => {
+        let education = educationFile.filter((x) => {
+          return x.fips === d.id;
+        });
+        if (education[0]) {
+          return "#" + colorScale(education[0].bachelorsOrHigher) + "00000";
+        } else {
+          return "#" + colorScale(0) + "00000";
+        }
+      })
       .attr("d", path);
   });
