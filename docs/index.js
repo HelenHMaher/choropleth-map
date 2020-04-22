@@ -208,7 +208,7 @@ d3.queue()
       .on("mouseover", (d) => {
         tooltip
           .style("opacity", 0.8)
-          .style("top", d3.event.pageY - 150 + "px")
+          .style("top", d3.event.pageY + 50 + "px")
           .style("left", d3.event.pageX - 50 + "px")
           .attr("data-education", getEducationData(d))
           .html(textContent(d));
