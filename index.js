@@ -113,25 +113,27 @@ d3.queue()
 
     const legendXScale = d3
       .scaleLinear()
-      .domain([d3.min(edArray), d3.max(edArray)])
-      .range([0, 320]);
+      .domain([d3.min(thresholdArray), d3.max(thresholdArray)])
+      .range([45, 315]);
 
     const legendAxis = d3
       .axisBottom(legendXScale)
       .tickValues(thresholdArray)
-      .tickFormat(d3.format(".1f"));
+      .tickFormat((d) => d3.format(".1f")(d) + "%");
 
-    const legend = svgContainer.append("g").attr("id", "legend");
+    const legend = svgContainer
+      .append("g")
+      .attr("id", "legend")
+      .style("transform", "translate(20px, " + (height - 50) + "px)");
 
     legend
-      .append("g")
       .selectAll("rect")
       .data(colors)
       .enter()
       .append("rect")
-      .attr("x", (d, i) => i * 40)
-      .attr("y", 0)
-      .attr("width", 40)
+      .attr("x", (d, i) => i * 45 + 0.5)
+      .attr("y", -29.5)
+      .attr("width", 45)
       .attr("height", 30)
       .attr("fill", (d) => d)
       .style("stroke", "white")

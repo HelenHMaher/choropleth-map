@@ -63,3 +63,17 @@ html {
   box-shadow: 0 0 5px;
   opacity: 0;
 }
+
+#legend path {
+  stroke: white;
+  stroke-width: 0.5;
+}
+
+#legend line {
+  stroke: white;
+  stroke-width: 0.5;
+}
+
+#legend text {
+  font-size: 12px;
+}
