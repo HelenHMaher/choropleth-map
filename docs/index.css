@@ -77,3 +77,13 @@ html {
 #legend text {
   font-size: 12px;
 }
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #0000ee;
+  text-decoration: underline;
+}
