@@ -54,6 +54,17 @@ const states = {
   WY: "Wyoming",
 };
 
+const colors = [
+  "#EFDFDF",
+  "#CF9F9F",
+  "#B06060",
+  "#902020",
+  "#700000",
+  "#500000",
+  "#300000",
+  "#100000",
+];
+
 //define svg area
 
 const width = 1000,
@@ -98,10 +109,7 @@ d3.queue()
     };
     stepThreshold();
 
-    const colorScale = d3
-      .scaleThreshold()
-      .domain(thresholdArray)
-      .range([1, 2, 3, 4, 5, 6, 7, 8]);
+    const colorScale = d3.scaleThreshold().domain(thresholdArray).range(colors);
 
     const legendXScale = d3
       .scaleLinear()
@@ -121,7 +129,7 @@ d3.queue()
       .attr("width", 5)
       .attr("height", 20)
       .attr("fill", (d) => {
-        return "#" + colorScale(d) + "00000";
+        return colorScale(d);
       });
 
     //constants used to visualize counties with colors and tooltip
@@ -185,7 +193,7 @@ d3.queue()
         return getEducationData(d);
       })
       .attr("fill", (d) => {
-        return "#" + colorScale(getEducationData(d)) + "00000";
+        return colorScale(getEducationData(d));
       })
       .attr("d", geoGenerator)
       .on("mouseover", (d) => {
