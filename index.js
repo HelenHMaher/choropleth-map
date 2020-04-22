@@ -114,23 +114,30 @@ d3.queue()
     const legendXScale = d3
       .scaleLinear()
       .domain([d3.min(edArray), d3.max(edArray)])
-      .range([0, 300]);
+      .range([0, 320]);
+
+    const legendAxis = d3
+      .axisBottom(legendXScale)
+      .tickValues(thresholdArray)
+      .tickFormat(d3.format(".1f"));
 
     const legend = svgContainer.append("g").attr("id", "legend");
 
     legend
       .append("g")
       .selectAll("rect")
-      .data(edArray)
+      .data(colors)
       .enter()
       .append("rect")
-      .attr("x", (d) => legendXScale(d))
-      .attr("y", height - 50)
-      .attr("width", 5)
-      .attr("height", 20)
-      .attr("fill", (d) => {
-        return colorScale(d);
-      });
+      .attr("x", (d, i) => i * 40)
+      .attr("y", 0)
+      .attr("width", 40)
+      .attr("height", 30)
+      .attr("fill", (d) => d)
+      .style("stroke", "white")
+      .style("stroke-width", 0.5);
+
+    legend.append("g").attr("id", "legendAxis").call(legendAxis);
 
     //constants used to visualize counties with colors and tooltip
 
